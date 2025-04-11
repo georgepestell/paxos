@@ -2,6 +2,9 @@
 
 A simple PAXOS implementation written in Java using message passing.
 
+- Handles message passing failure through receipt messaging and timeouts
+- Handles broken proposers and acceptors (as long the 3N + 1 rule holds)
+
 # Running
 
 To run the example (test) cases, run: 
