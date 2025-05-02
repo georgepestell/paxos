@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
 
 /**
  * Unit test for simple App.
@@ -14,7 +16,9 @@ import org.junit.Test;
 public class MainTests
 {
 
-    @Before
+
+
+    @BeforeEach
     public void setup() {
         System.out.println("Preparing Test");
         MessagePool.setup();
