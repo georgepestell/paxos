@@ -6,9 +6,11 @@ public abstract class PaxosProcess {
     private final int processId;
     protected String processType;
     private float unreliability = 0.0f;
+    protected int poolId;
 
-    PaxosProcess() {
+    PaxosProcess(int poolId) {
         this.processId = nextProcessId++;
+        this.poolId = poolId;
     }
 
     static public void setup() {
@@ -28,7 +30,7 @@ public abstract class PaxosProcess {
 
     public void trySendMessage(Message message) {
         if (Math.random() > this.unreliability) {
-            MessagePool.send(message);
+            MessagePool.send(poolId, message);
         }
     }
 

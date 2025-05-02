@@ -16,7 +16,8 @@ public class Proposer extends PaxosProcess {
 
     private int maxBallotId;
 
-    Proposer(List<Acceptor> acceptors, String proposal, int ballotId) {
+    Proposer(int poolId, List<Acceptor> acceptors, String proposal, int ballotId) {
+      super(poolId);
         this.processType = "Proposer";
         this.acceptors = acceptors;
         this.proposal = proposal;
@@ -44,7 +45,7 @@ public class Proposer extends PaxosProcess {
 
     @Override
     public boolean nextTask() {
-        Message msg = MessagePool.receive(this.getProcessId());
+        Message msg = MessagePool.receive(this.poolId, this.getProcessId());
         if (msg != null) {
             this.log(msg);
             Message.MessageType messageType = msg.getMessageType();

@@ -14,21 +14,24 @@ public class    Main {
         int noOfLearners = 2;
         int maxProcessSteps = 1000;
 
+        int poolId = MessagePool.newPool();
+
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
-            acceptors.add(new Acceptor());
+            acceptors.add(new Acceptor(poolId));
         }
 
         String[] proposals = {"first", "second", "third", "fourth", "fifth"};
 
+
         List<Proposer> proposers = new ArrayList<>();
         for (int i = 0; i < noOfProposers; i++) {
-            proposers.add(new Proposer(scramble(acceptors), proposals[i], 1000 + i));
+            proposers.add(new Proposer(poolId, scramble(acceptors), proposals[i], 1000 + i));
         }
 
         List<Learner> learners = new ArrayList<>();
         for (int i = 0; i < noOfLearners; i++) {
-            learners.add(new Learner(scramble(acceptors)));
+            learners.add(new Learner(poolId, scramble(acceptors)));
         }
 
         List<PaxosProcess> paxosProcesses = new ArrayList<>();

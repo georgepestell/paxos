@@ -15,7 +15,8 @@ public class Learner extends PaxosProcess {
 
     private Map<Integer, String> learnedValues = new HashMap<>();
 
-    public Learner(List<Acceptor> acceptors) {
+    public Learner(int poolId, List<Acceptor> acceptors) {
+      super(poolId);
         this.processType = "Learner";
         this.acceptors = acceptors;
 
@@ -36,7 +37,7 @@ public class Learner extends PaxosProcess {
 
     @Override
     public boolean nextTask() {
-        Message msg = MessagePool.receive(this.getProcessId());
+        Message msg = MessagePool.receive(this.poolId, this.getProcessId());
         if (msg != null) {
             this.log(msg);
             Message.MessageType messageType = msg.getMessageType();

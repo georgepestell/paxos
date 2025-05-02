@@ -16,7 +16,8 @@ public class Acceptor extends PaxosProcess {
     // List of learners
     private List<Integer> learners = new ArrayList<>();
 
-    public Acceptor() {
+    public Acceptor(int poolId) {
+      super(poolId);
         this.processType = "Acceptor";
     }
 
@@ -31,7 +32,7 @@ public class Acceptor extends PaxosProcess {
             return false;
         }
 
-        Message msg = MessagePool.receive(this.getProcessId());
+        Message msg = MessagePool.receive(this.poolId, this.getProcessId());
         if (msg != null) {
             this.log(msg);
             Message.MessageType messageType = msg.getMessageType();
