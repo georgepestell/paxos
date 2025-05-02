@@ -50,7 +50,7 @@ public class MainTests
         int noOfAcceptors = 3;
         int noOfProposers = 3;
         int noOfLearners = 2;
-        int maxProcessSteps = 200;
+        int maxProcessSteps = 1000;
 
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
@@ -96,7 +96,7 @@ public class MainTests
 
         int noOfProposers = 3;
         int noOfLearners = 2;
-        int maxProcessSteps = 500;
+        int maxProcessSteps = 1000;
 
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
@@ -145,7 +145,7 @@ public class MainTests
 
         int noOfProposers = 5;
         int noOfLearners = 4;
-        int maxProcessSteps = 500;
+        int maxProcessSteps = 1000;
 
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
@@ -194,7 +194,7 @@ public class MainTests
 
         int noOfProposers = 5;
         int noOfLearners = 4;
-        int maxProcessSteps = 500;
+        int maxProcessSteps = 1000;
 
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
@@ -240,7 +240,7 @@ public class MainTests
 
         // int noOfProposers = 3;
         int noOfLearners = 2;
-        int maxProcessSteps = 500;
+        int maxProcessSteps = 1000;
 
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
@@ -291,7 +291,7 @@ public class MainTests
 
         int noOfProposers = 3;
         int noOfLearners = 2;
-        int maxProcessSteps = 500;
+        int maxProcessSteps = 1000;
 
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
