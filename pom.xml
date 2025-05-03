@@ -91,4 +91,15 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://github.com/georgepestell/paxos</url>
+      <layout>default</layout>
+    </repository>
+  </distributionManagement>
+
 </project>
