@@ -7,7 +7,6 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
 
 
 /**
@@ -15,11 +14,6 @@ import org.junit.jupiter.api.BeforeAll;
  */
 public class MainTests
 {
-
-  @BeforeAll
-  public static void setup() {
-    PaxosProcess.setup();
-  }
 
     public static void run(List<Acceptor> acceptors, List<Proposer> proposers, List<Learner> learners, int maxProcessSteps) {
 

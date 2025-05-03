@@ -1,20 +1,19 @@
 package cs4103.sta;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public abstract class PaxosProcess {
 
-    static protected int nextProcessId = 0;
+    static protected AtomicInteger nextProcessId = new AtomicInteger();
     private final int processId;
     protected String processType;
     private float unreliability = 0.0f;
     protected int poolId;
 
-    PaxosProcess(int poolId) {
-        this.processId = nextProcessId++;
-        this.poolId = poolId;
-    }
 
-    static public void setup() {
-        PaxosProcess.nextProcessId = 0;
+    PaxosProcess(int poolId) {
+        this.processId = nextProcessId.getAndIncrement();
+        this.poolId = poolId;
     }
 
     abstract public boolean nextTask();
