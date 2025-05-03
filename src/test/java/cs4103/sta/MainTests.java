@@ -7,7 +7,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 
 
 /**
@@ -16,14 +16,10 @@ import org.junit.jupiter.api.BeforeEach;
 public class MainTests
 {
 
-
-
-    @BeforeEach
-    public void setup() {
-        System.out.println("Preparing Test");
-        MessagePool.setup();
-        PaxosProcess.setup();
-    }
+  @BeforeAll
+  public static void setup() {
+    PaxosProcess.setup();
+  }
 
     public static void run(List<Acceptor> acceptors, List<Proposer> proposers, List<Learner> learners, int maxProcessSteps) {
 
@@ -52,21 +48,23 @@ public class MainTests
         int noOfLearners = 2;
         int maxProcessSteps = 1000;
 
+        int poolId = MessagePool.newPool();
+
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
-            acceptors.add(new Acceptor());
+            acceptors.add(new Acceptor(poolId));
         }
 
         String[] proposals = {"first", "second", "third", "fourth", "fifth"};
 
         List<Proposer> proposers = new ArrayList<>();
         for (int i = 0; i < noOfProposers; i++) {
-            proposers.add(new Proposer(scramble(acceptors), proposals[i], 1000 + i));
+            proposers.add(new Proposer(poolId, scramble(acceptors), proposals[i], 1000 + i));
         }
 
         List<Learner> learners = new ArrayList<>();
         for (int i = 0; i < noOfLearners; i++) {
-            learners.add(new Learner(scramble(acceptors)));
+            learners.add(new Learner(poolId, scramble(acceptors)));
         }
 
         run(acceptors, proposers, learners, maxProcessSteps);
@@ -98,9 +96,11 @@ public class MainTests
         int noOfLearners = 2;
         int maxProcessSteps = 1000;
 
+        int poolId = MessagePool.newPool();
+
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
-            acceptors.add(new Acceptor());
+            acceptors.add(new Acceptor(poolId));
         }
 
         for (int i = 0; i < noOfBrokenAcceptors; i++) {
@@ -111,12 +111,12 @@ public class MainTests
 
         List<Proposer> proposers = new ArrayList<>();
         for (int i = 0; i < noOfProposers; i++) {
-            proposers.add(new Proposer(scramble(acceptors), proposals[i], 1000 + i));
+            proposers.add(new Proposer(poolId, scramble(acceptors), proposals[i], 1000 + i));
         }
 
         List<Learner> learners = new ArrayList<>();
         for (int i = 0; i < noOfLearners; i++) {
-            learners.add(new Learner(scramble(acceptors)));
+            learners.add(new Learner(poolId, scramble(acceptors)));
         }
 
         run(acceptors, proposers, learners, maxProcessSteps);
@@ -147,9 +147,11 @@ public class MainTests
         int noOfLearners = 4;
         int maxProcessSteps = 1000;
 
+        int poolId = MessagePool.newPool();
+
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
-            acceptors.add(new Acceptor());
+            acceptors.add(new Acceptor(poolId));
         }
 
         for (int i = 0; i < noOfBrokenAcceptors; i++) {
@@ -160,12 +162,12 @@ public class MainTests
 
         List<Proposer> proposers = new ArrayList<>();
         for (int i = 0; i < noOfProposers; i++) {
-            proposers.add(new Proposer(scramble(acceptors), proposals[i], 1000 + i));
+            proposers.add(new Proposer(poolId, scramble(acceptors), proposals[i], 1000 + i));
         }
 
         List<Learner> learners = new ArrayList<>();
         for (int i = 0; i < noOfLearners; i++) {
-            learners.add(new Learner(scramble(acceptors)));
+            learners.add(new Learner(poolId, scramble(acceptors)));
         }
 
         run(acceptors, proposers, learners, maxProcessSteps);
@@ -196,9 +198,11 @@ public class MainTests
         int noOfLearners = 4;
         int maxProcessSteps = 1000;
 
+        int poolId = MessagePool.newPool();
+
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
-            acceptors.add(new Acceptor());
+            acceptors.add(new Acceptor(poolId));
         }
 
         for (int i = 0; i < noOfBrokenAcceptors; i++) {
@@ -209,12 +213,12 @@ public class MainTests
 
         List<Proposer> proposers = new ArrayList<>();
         for (int i = 0; i < noOfProposers; i++) {
-            proposers.add(new Proposer(scramble(acceptors), proposals[i], 1000 + i));
+            proposers.add(new Proposer(poolId, scramble(acceptors), proposals[i], 1000 + i));
         }
 
         List<Learner> learners = new ArrayList<>();
         for (int i = 0; i < noOfLearners; i++) {
-            learners.add(new Learner(scramble(acceptors)));
+            learners.add(new Learner(poolId, scramble(acceptors)));
         }
 
         run(acceptors, proposers, learners, maxProcessSteps);
@@ -242,9 +246,11 @@ public class MainTests
         int noOfLearners = 2;
         int maxProcessSteps = 1000;
 
+        int poolId = MessagePool.newPool();
+
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
-            acceptors.add(new Acceptor());
+            acceptors.add(new Acceptor(poolId));
         }
 
         for (int i = 0; i < noOfBrokenAcceptors; i++) {
@@ -256,13 +262,13 @@ public class MainTests
         List<Proposer> proposers = new ArrayList<>();
         
         // Add 3 proposers with >= 1 overlapping acceptors and a majority of acceptors
-        proposers.add(new Proposer(acceptors.subList(0, 3), proposals[0], 1));
-        proposers.add(new Proposer(acceptors.subList(1, 4), proposals[1], 2));
-        proposers.add(new Proposer(acceptors.subList(2, 5), proposals[2], 5));
+        proposers.add(new Proposer(poolId, acceptors.subList(0, 3), proposals[0], 1));
+        proposers.add(new Proposer(poolId, acceptors.subList(1, 4), proposals[1], 2));
+        proposers.add(new Proposer(poolId, acceptors.subList(2, 5), proposals[2], 5));
 
         List<Learner> learners = new ArrayList<>();
         for (int i = 0; i < noOfLearners; i++) {
-            learners.add(new Learner(scramble(acceptors)));
+            learners.add(new Learner(poolId, scramble(acceptors)));
         }
 
         run(acceptors, proposers, learners, maxProcessSteps);
@@ -293,9 +299,11 @@ public class MainTests
         int noOfLearners = 2;
         int maxProcessSteps = 1000;
 
+        int poolId = MessagePool.newPool();
+
         List<Acceptor> acceptors = new ArrayList<>();
         for (int i = 0; i < noOfAcceptors; i++) {
-            Acceptor newAcceptor = new Acceptor();
+            Acceptor newAcceptor = new Acceptor(poolId);
             newAcceptor.setUnreliability(0.2f);
             acceptors.add(newAcceptor);
         }
@@ -309,14 +317,14 @@ public class MainTests
         List<Proposer> proposers = new ArrayList<>();
         
         for (int i = 0; i < noOfProposers; i++) {
-            Proposer newProposer = new Proposer(scramble(acceptors), proposals[i], i);
+            Proposer newProposer = new Proposer(poolId, scramble(acceptors), proposals[i], i);
             newProposer.setUnreliability(0.2f);
             proposers.add(newProposer);
         }
 
         List<Learner> learners = new ArrayList<>();
         for (int i = 0; i < noOfLearners; i++) {
-            Learner newLearner = new Learner(scramble(acceptors));
+            Learner newLearner = new Learner(poolId, scramble(acceptors));
             newLearner.setUnreliability(0.2f);
             learners.add(newLearner);
         }
