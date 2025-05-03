@@ -41,7 +41,7 @@ public class ParallelRunner {
                         int allSteps = stepsTaken.incrementAndGet();
                         processFinished = process.nextTask();
 
-                        if (allSteps >= maxSteps && !allFinish.get()) {
+                        if ((allSteps >= maxSteps || consensusReached(processes)) && !allFinish.get()) {
                             System.out.println("executed " + allSteps + " steps, processes terminating");
                             allFinish.set(true);
                         }
@@ -61,6 +61,36 @@ public class ParallelRunner {
         } finally {
             executorService.shutdown();
         }
+
+    }
+
+    private boolean consensusReached(List<PaxosProcess> processes) {
+      List<Learner> learners = new ArrayList<>();
+      for (PaxosProcess p : processes) {
+        if (p instanceof Learner) {
+          learners.add((Learner) p);
+        }
+      } 
+
+      if (learners.isEmpty()) {
+        return true;
+      }
+
+      String firstConsensus = ((Learner) learners.get(0)).getConsensusValue();
+      if (firstConsensus == null) {
+        return false;
+      }
+
+      // Check if all learners have the same consensus value
+      for (Learner learner: learners) {
+        String value = learner.getConsensusValue();
+        if (value == null || !value.equals(firstConsensus)) {
+          return false;
+        } 
+      }
+
+      return true;
+
 
     }
 
