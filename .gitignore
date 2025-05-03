@@ -1,0 +1,5 @@
+/target/
+/tex/*
+!/tex/*.pdf
+!/tex/*.tex
+!/tex/assets
